@@ -14,6 +14,19 @@ public class BookingEntity {
 
     }
 
+    public BookingEntity(String bookingDate, UserEntity User, String bookingPickUpLocation, String bookingDropOffLocation, String bookingPickUpTime, String bookingDropOffTime, String bookingNumberOfPassengers, VehicleEntity Vehicle, DriverEntity Driver, PaymentEntity Payment) {
+        this.bookingDate = bookingDate;
+        this.User = User;
+        this.bookingPickUpLocation = bookingPickUpLocation;
+        this.bookingDropOffLocation = bookingDropOffLocation;
+        this.bookingPickUpTime = bookingPickUpTime;
+        this.bookingDropOffTime = bookingDropOffTime;
+        this.bookingNumberOfPassengers = bookingNumberOfPassengers;
+        this.Vehicle = Vehicle;
+        this.Driver = Driver;
+        this.Payment = Payment;
+    }
+
     @Column(name="booking_date")
     private String bookingDate;
 
