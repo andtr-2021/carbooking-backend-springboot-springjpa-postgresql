@@ -22,5 +22,13 @@ Users:
 - To put: http://localhost:8080/api/v1/users/{id}
 - To delete: http://localhost:8080/api/v1/users/{id}
 
+---
+
+Bookings:
+- To get: http://localhost:8080/api/v1/bookings
+- To post: http://localhost:8080/api/v1/bookings (no need to add the id into the entity again, it will auto generated)
+- To put: http://localhost:8080/api/v1/bookings/{id}
+- To delete: http://localhost:8080/api/v1/bookings/{id}
+
 
 
