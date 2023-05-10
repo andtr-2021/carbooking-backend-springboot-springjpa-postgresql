@@ -55,6 +55,7 @@ public class UserController {
         user.setUserEmail(userDetails.getUserEmail());
         user.setUserPassword(userDetails.getUserPassword());
         user.setUserPhoneNumber(userDetails.getUserPhoneNumber());
+        user.setBookings(userDetails.getBookings());
 
 
         UserEntity updatedUser = userRepository.save(user);

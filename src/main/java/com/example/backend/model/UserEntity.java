@@ -2,6 +2,8 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="TBL_USERS")
 public class UserEntity {
@@ -31,6 +33,9 @@ public class UserEntity {
 
     @Column(name="user_phone_number")
     private String userPhoneNumber;
+
+    @OneToMany(mappedBy = "User")
+    private List<BookingEntity> Bookings;
 
 
     public Long getId() {
@@ -71,6 +76,14 @@ public class UserEntity {
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public List<BookingEntity> getBookings() {
+        return Bookings;
+    }
+
+    public void setBookings(List<BookingEntity> Bookings) {
+        this.Bookings = Bookings;
     }
 
 }
