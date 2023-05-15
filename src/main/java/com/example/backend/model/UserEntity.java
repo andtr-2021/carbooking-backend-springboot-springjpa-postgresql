@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class UserEntity {
     @Column(name="user_phone_number")
     private String userPhoneNumber;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany
+//    @JoinColumn(name = "booking_id")
     private List<BookingEntity> Bookings;
 
 
