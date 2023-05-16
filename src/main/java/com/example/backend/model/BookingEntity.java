@@ -15,7 +15,7 @@ public class BookingEntity {
 
     }
 
-    public BookingEntity(String bookingDate, UserEntity User, String bookingPickUpLocation, String bookingDropOffLocation, String bookingPickUpTime, String bookingDropOffTime, String bookingNumberOfPassengers, VehicleEntity Vehicle, DriverEntity Driver, PaymentEntity Payment) {
+    public BookingEntity(String bookingDate, UserEntity User, String bookingPickUpLocation, String bookingDropOffLocation, String bookingPickUpTime, String bookingDropOffTime, String bookingNumberOfPassengers, VehicleEntity Vehicle, DriverEntity Driver, PaymentEntity Payment, String status) {
         this.bookingDate = bookingDate;
         this.User = User;
         this.bookingPickUpLocation = bookingPickUpLocation;
@@ -26,6 +26,7 @@ public class BookingEntity {
         this.Vehicle = Vehicle;
         this.Driver = Driver;
         this.Payment = Payment;
+        this.status = status;
     }
 
     @Column(name="booking_date")
@@ -58,6 +59,8 @@ public class BookingEntity {
 
     @OneToOne
     private PaymentEntity Payment;
+
+    private String status;
 
 
     public Long getId() {
@@ -147,4 +150,8 @@ public class BookingEntity {
     public void setPayment(PaymentEntity payment) {
         Payment = payment;
     }
+
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {this.status = status;}
 }

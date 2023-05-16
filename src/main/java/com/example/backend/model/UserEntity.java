@@ -1,6 +1,5 @@
 package com.example.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -34,12 +33,6 @@ public class UserEntity {
 
     @Column(name="user_phone_number")
     private String userPhoneNumber;
-
-    @OneToMany
-//    @JoinColumn(name = "booking_id")
-    private List<BookingEntity> Bookings;
-
-
     public Long getId() {
         return id;
     }
@@ -78,14 +71,6 @@ public class UserEntity {
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
-    }
-
-    public List<BookingEntity> getBookings() {
-        return Bookings;
-    }
-
-    public void setBookings(List<BookingEntity> Bookings) {
-        this.Bookings = Bookings;
     }
 
 }

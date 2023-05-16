@@ -9,15 +9,7 @@ import com.example.backend.model.BookingEntity;
 import com.example.backend.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -60,12 +52,11 @@ public class BookingController {
         booking.setDriver(bookingDetails.getDriver());
         booking.setVehicle(bookingDetails.getVehicle());
         booking.setPayment(bookingDetails.getPayment());
+        booking.setStatus(bookingDetails.getStatus());
 
         BookingEntity updatedBooking = bookingRepository.save(booking);
         return ResponseEntity.ok(updatedBooking);
     }
-
-    // delete employee rest api
     @DeleteMapping("/bookings/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteBooking(@PathVariable Long id){
         BookingEntity booking = bookingRepository.findById(id)
@@ -76,4 +67,46 @@ public class BookingController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/bookings/status/{id}")
+    public ResponseEntity<BookingEntity> updateBookingStatus(@PathVariable Long id, @RequestBody Map<String, String> statusMap) {
+        BookingEntity booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking does not exist with id: " + id));
+
+        String status = statusMap.get("status");
+        booking.setStatus(status);
+
+        BookingEntity updatedBooking = bookingRepository.save(booking);
+        return ResponseEntity.ok(updatedBooking);
+    }
+
+    @PatchMapping("/bookings/{id}")
+    public ResponseEntity<BookingEntity> updateBookingDetails(@PathVariable Long id, @RequestBody BookingEntity updatedBooking) {
+        BookingEntity booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking does not exist with id: " + id));
+
+        if (updatedBooking.getBookingDate() != null) {
+            booking.setBookingDate(updatedBooking.getBookingDate());
+        }
+
+        if (updatedBooking.getBookingPickUpTime() != null) {
+            booking.setBookingPickUpTime(updatedBooking.getBookingPickUpTime());
+        }
+
+        if (updatedBooking.getBookingPickUpLocation() != null) {
+            booking.setBookingPickUpLocation(updatedBooking.getBookingPickUpLocation());
+        }
+
+        if (updatedBooking.getBookingDropOffLocation() != null) {
+            booking.setBookingDropOffLocation(updatedBooking.getBookingDropOffLocation());
+        }
+
+        if (updatedBooking.getBookingNumberOfPassengers() != null) {
+            booking.setBookingNumberOfPassengers(updatedBooking.getBookingNumberOfPassengers());
+        }
+
+        BookingEntity updatedBookingEntity = bookingRepository.save(booking);
+        return ResponseEntity.ok(updatedBookingEntity);
+    }
+
 }
