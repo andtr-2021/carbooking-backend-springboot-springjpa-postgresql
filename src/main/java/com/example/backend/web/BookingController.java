@@ -6,7 +6,9 @@ import java.util.Map;
 
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.BookingEntity;
+import com.example.backend.model.PaymentEntity;
 import com.example.backend.repository.BookingRepository;
+import com.example.backend.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class BookingController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @GetMapping("/bookings")
     public List<BookingEntity> getAllBookings(){
@@ -75,6 +80,12 @@ public class BookingController {
 
         String status = statusMap.get("status");
         booking.setStatus(status);
+
+        if (status.equals("finish")) {
+            PaymentEntity payment = booking.getPayment();
+            payment.setPaymentStatus("paid");
+            paymentRepository.save(payment);
+        }
 
         BookingEntity updatedBooking = bookingRepository.save(booking);
         return ResponseEntity.ok(updatedBooking);
